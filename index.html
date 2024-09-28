@@ -119,14 +119,30 @@
   margin-top: 10px;
   text-align: center;
 }
+.square {
+    width: 14%;
+    height: 17%;
+    background-color: bisque;
+    left: -2%;
+    top: 85%;
+    z-index: -1;
+    position: absolute;
+    transition-duration: 600ms;
+    transform: translateX(-100%);
+}
+.headbar a:hover + .square {
+    transform: translateX(0);
+}
     </style>
     <div class="headbar">
         <img src="pictures/book.png" alt="">
         <div class="left"><h3>Education Go!</h3></div>
         <input type="text" id="searchBox" class="searchBox" placeholder="Search games..." onkeyup="searchGames()">
         <div id="searchResults"></div>
-
+        <a href="about.html" style="color: black;">About</a>
+        <div class="square"></div>
     </div>
+
 
     <div class="contact" id="contact">
         <br>
@@ -165,6 +181,8 @@
         <div class="leargriditem"><a href=""><img src="pictures/game9.png" alt=""></a></div>
         <div class="leargriditem"><a href=""><img src="pictures/game10.png" alt=""></a></div>
     </div>
+    <hr><br>
+    <p>Education Go! is a dynamic online platform dedicated to empowering students and educators through interactive and engaging learning resources. Our mission is to make education accessible, fun, and effective by providing a wide variety of tools, games, and tutorials that cater to different learning styles. Whether you’re a student looking to enhance your skills or a teacher seeking innovative methods to inspire your classroom, Education Go! offers a comprehensive range of content tailored to meet your educational needs. Join us on a journey of discovery and growth as we bring learning to life!</p>
     </div>
 
     <div class="item", id="item" style="height: 100%; bottom: 1%;">

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sk</title>
+<title>Free Movies/Shows</title>
 <style>
   body, html {
     margin: 0;
@@ -21,9 +21,17 @@
 <body>
 
 <button onclick="toggleFullScreen()">Toggle Fullscreen</button>
-<embed id="embed" src="https://booflix.to" type="text/html">
+<input type="text" placeholder="Access Code" id="acc">
+<embed id="embed" src="noacc.html" type="text/html">
 
 <script>
+   window.open = function() {
+    console.log("Pop-up blocked");
+    return null;
+  };
+  if(localStorage.getItem("access")){
+    document.getElementById("embed").setAttribute("src", "https://web.netmovies.to");
+  }
 function toggleFullScreen() {
   var embed = document.getElementById("embed");
   if (!document.fullscreenElement) {
@@ -34,6 +42,15 @@ function toggleFullScreen() {
     document.exitFullscreen();
   }
 }
+
+  document.getElementById("acc").addEventListener("change", ()=>{
+    if (document.getElementById("acc").value === "WATCHNOW123") {
+      embed.setAttribute("src", "https://web.netmovies.to");
+      localStorage.setItem("access", true);
+
+    }
+  })
+
 </script>
 
 </body>

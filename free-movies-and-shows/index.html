@@ -12,9 +12,10 @@
     height: 100%;
     overflow: hidden;
   }
-  embed {
+  iframe {
     width: 100%;
     height: 100%;
+    border: none;
   }
 </style>
 </head>
@@ -22,35 +23,45 @@
 
 <button onclick="toggleFullScreen()">Toggle Fullscreen</button>
 <input type="text" placeholder="Access Code" id="acc">
-<embed id="embed" src="noacc.html" type="text/html">
+<p>If all of the servers are blocking it because of "embed" or "sandbox iframe"</p><a href="nonsandbox_iframe.html"> click here</a>
+<iframe id="iframe" src="" sandbox="allow-scripts allow-same-origin"></iframe>
 
 <script>
-   window.open = function() {
-    console.log("Pop-up blocked");
-    return null;
-  };
-  if(localStorage.getItem("access")){
-    document.getElementById("embed").setAttribute("src", "https://web.netmovies.to");
-  }
-function toggleFullScreen() {
-  var embed = document.getElementById("embed");
-  if (!document.fullscreenElement) {
-    embed.requestFullscreen().catch(err => {
-      alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-    });
-  } else {
-    document.exitFullscreen();
-  }
-}
+  // Block window.open to prevent popups
+  window.open = function() { return null; };
 
-  document.getElementById("acc").addEventListener("change", ()=>{
-    if (document.getElementById("acc").value === "WATCHNOW123") {
-      embed.setAttribute("src", "https://web.netmovies.to");
-      localStorage.setItem("access", true);
-
+  // Disable target="_blank" behavior in the iframe
+  document.addEventListener('click', function(event) {
+    if (event.target.tagName === 'A' && event.target.target === '_blank') {
+      event.preventDefault();
+      console.log('Blocked a link trying to open in a new tab');
     }
-  })
+  }, true);
 
+  // Check if access was previously granted
+  if (localStorage.getItem("access")) {
+    document.getElementById("iframe").setAttribute("src", "https://web.netmovies.to");
+  }
+
+  // Fullscreen toggle function
+  function toggleFullScreen() {
+    var iframe = document.getElementById("iframe");
+    if (!document.fullscreenElement) {
+      iframe.requestFullscreen().catch(err => {
+        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Access code input event listener
+  document.getElementById("acc").addEventListener("change", () => {
+    if (document.getElementById("acc").value === "WATCHNOW123") {
+      iframe.setAttribute("src", "https://web.netmovies.to");
+      localStorage.setItem("access", true);
+    }
+  });
 </script>
 
 </body>
